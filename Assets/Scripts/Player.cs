@@ -15,10 +15,15 @@ public class Player : MonoBehaviour
     private float _yVelocity = 0;
     private bool _doubleJump = false;
 
+    //Coins part
+    private int _coins;
+    private UIManager uimanager;
+
     // Start is called before the first frame update
     void Start()
     {
-        _controller = GetComponent<CharacterController>(); 
+        _controller = GetComponent<CharacterController>();
+        uimanager = GameObject.FindWithTag("UI").GetComponent<UIManager>();
     }
 
     // Update is called once per frame
@@ -77,4 +82,18 @@ public class Player : MonoBehaviour
         _controller.Move(velocity * Time.deltaTime);
 
     }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        //COINS, if the collided thing's tag is "collectible", the we add1 and call the ui func.
+        if (other.tag == "Collectible")
+        {
+            _coins++;
+            uimanager.UIcoins(_coins);
+            Destroy(other.gameObject);
+        }
+    }
+
+
 }
