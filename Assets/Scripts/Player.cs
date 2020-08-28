@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //  INPUT MANAGER AND CHARACTER CONTROLLER
         // getting input from the input manager
