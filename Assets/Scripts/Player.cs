@@ -19,16 +19,34 @@ public class Player : MonoBehaviour
     private int _coins;
     private UIManager uimanager;
 
+    //LIFES part
+    [SerializeField]
+    private int _lives = 3;
+
+
     // Start is called before the first frame update
     void Start()
     {
         _controller = GetComponent<CharacterController>();
         uimanager = GameObject.FindWithTag("UI").GetComponent<UIManager>();
+        if (uimanager == null)
+        {
+            Debug.LogError("UIManager not found");
+        }
+        _lives = 3;
+        uimanager.LivesDisplay(_lives);
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
+        PlayerMovement();
+
+    }
+
+    private void PlayerMovement()
+    {
+
         //  INPUT MANAGER AND CHARACTER CONTROLLER
         // getting input from the input manager
         float horizontalInput = Input.GetAxis("Horizontal");
@@ -81,8 +99,14 @@ public class Player : MonoBehaviour
         velocity.y = _yVelocity;
         _controller.Move(velocity * Time.deltaTime);
 
-    }
+        //RESPAWN WHEN WE FALL AND RESTART WHEN WE ARE OUT OF LIFES
+        if(transform.position.y < -30)
+        {
+            PlayerLiveIpdate();
+        }
 
+
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -94,6 +118,12 @@ public class Player : MonoBehaviour
             Destroy(other.gameObject);
         }
     }
+
+    private void PlayerLiveIpdate()
+    {
+        _lives--;
+        uimanager.LivesDisplay(_lives);
+        gameObject.transform.position = new Vector3(0,3,0);    }
 
 
 }

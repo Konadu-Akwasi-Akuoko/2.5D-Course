@@ -8,23 +8,20 @@ public class UIManager : MonoBehaviour
     //COINS
     [SerializeField]
     private Text _coinsText;
+    //LIVES
+    [SerializeField]
+    private Text _livesText;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     //This funcion gets the number of coins from the player class and displays it.
     public void UIcoins(int updatecoins)
     {
         _coinsText.text = "Coins :" + updatecoins;
+    }
+
+    public void LivesDisplay(int lives)
+    {
+        _livesText.text = "Lives: " + lives;
     }
 
 }

@@ -39,21 +39,4 @@ public class MovingPlatform : MonoBehaviour
         }   
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.tag == "Player")
-        {
-            Debug.Log("I am on him");
-            other.transform.parent = this.transform;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            other.transform.parent = null;
-        }
-    }
-
 }
